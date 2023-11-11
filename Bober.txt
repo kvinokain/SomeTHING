@@ -1,0 +1,22 @@
+sudo apt install postgresql postgresql-contrib
+sudo su - postgres
+sql
+CREATE DATABASE prod;
+CREATE DATABASE test;
+CREATE DATABASE dev;
+CREATE USER produser WITH PASSWORD 'xxXX1234';
+CREATE USER testuser WITH PASSWORD 'xxXX1234';
+CREATE USER devuser WITH PASSWORD 'xxXX1234';
+GRANT ALL PRIVILEGES ON DATABASE prod TO produser;
+GRANT ALL PRIVILEGES ON DATABASE test TO testuser;
+GRANT ALL PRIVILEGES ON DATABASE dev TO devuser;
+CREATE ROLE dbadmin WITH LOGIN SUPERUSER PASSWORD 'xxXX1234';
+exit
+exit
+psql -h 127.0.0.1 -U dbadmin -d test
+exit
+pgbench -i -s 1 prod && pgbench -i -s 1 dev && pgbench -i -s 1 test
+#wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
+#curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+#echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+#curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -

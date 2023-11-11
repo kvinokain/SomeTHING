@@ -1,0 +1,6 @@
+[webservers]
+rosa2021 ansible_ssh_host=192.168.99.150 ansible_ssh_user=ansible
+[client]
+localhost ansible_ssh_host=127.0.0.1 ansible_ssh_user=root
+[Test]
+astra ansible_ssh_host=192.168.99.151 ansible_ssh_user=root

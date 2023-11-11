@@ -1,0 +1,32 @@
+apt install zabbix
+nano /etc/apache2/apache2.conf 
+astra mode off
+sudo apt install zabbix-server-pgsql zabbix-frontend-php php-pgsql
+#https://wiki.astralinux.ru/pages/viewpage.action?pageId=38699775
+nano /etc/postgresql/*/main/pg_hba.conf 
+sudo -u postgres psql
+CREATE DATABASE ZABBIX;
+CREATE USER zabbix WITH ENCRYPTED PASSWORD '12345678';
+GRANT ALL ON DATABASE zabbix to zabbix;
+\q
+zcat /usr/share/zabbix-server-pgsql/{schema,images,data}.sql.gz | psql -h localhost zabbix zabbix
+sudo a2enconf zabbix-frontend-php
+sudo systemctl reload apache2
+sudo cp /usr/share/zabbix/conf/zabbix.conf.php.example /etc/zabbix/zabbix.conf.php
+sudo chown www-data:www-data /etc/zabbix/zabbix.conf.php
+
+В файле /etc/zabbix/zabbix.conf.php задать значения переменных TYPE (тип используемой СУБД) и PASSWORD (пароль пользователя zabbix СУБД):
+$DB['TYPE'] = 'POSTGRESQL';
+ 
+...
+$DB['PASSWORD'] = '<пароль_пользователя_zabbix_СУБД>';
+sudo systemctl reload apache2
+sudo systemctl enable zabbix-server
+sudo systemctl start zabbix-server
+http://localhost/zabbix/
+
+Если ошибки красные везде:
+#cat /etc/locale.gen | grep en_US.UTF-8
+#locale-gen
+apt-get install -y locales locales-all
+Администрирование - общие - язык по умолчанию

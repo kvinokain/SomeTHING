@@ -1,0 +1,5 @@
+apt install astra-ipa-server
+nano /etc/hostname
+srv-hq.company.prof
+astra-freeipa-server -o
+DALEE DALEE DALEE

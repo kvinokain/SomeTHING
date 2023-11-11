@@ -1,0 +1,7 @@
+pvcreate /dev/sdb
+sudo vgcreate myvg /dev/sdb
+lvcreate -n mylv -L 1g myvg
+lvcreate -n mylv -L 1g myvg
+pvcreate /dev/sdc
+vgcreate myvg /dev/sdb
+vgcreate myvg /dev/sdc

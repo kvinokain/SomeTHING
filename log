@@ -1,0 +1,13 @@
+CREATE DATABASE loganalyzer;
+CREATE USER 'loganalyzer'@'localhost' IDENTIFIED BY 'ваш_пароль';
+GRANT ALL PRIVILEGES ON loganalyzer.* TO 'loganalyzer'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+wget http://download.adiscon.com/loganalyzer/loganalyzer-4.1.7.tar.gz
+tar -xzf loganalyzer-4.1.7.tar.gz
+sudo mv loganalyzer-4.1.7 /var/www/html/loganalyzer
+sudo chown -R www-data:www-data /var/www/html/loganalyzer
+#https://www.pc360.ru/2022/10/21/%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80-%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2-rsyslogloganalyz$
+#127.0.0.1/loganalyzer/src/install
+#https://www.dmosk.ru/miniinstruktions.php?mini=rsyslog&ysclid=lnoofrp03s673688830
+

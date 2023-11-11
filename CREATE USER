@@ -1,0 +1,19 @@
+#!/bin/bash
+kinit admin 
+# Создание 30 пользователей
+for i in {1..30}; do
+  ipa user-add user$i --first=User$i --last=User$i
+done
+ 
+# Создание и заполнение групп
+for group_num in {1..3}; do
+  group_name="group$group_num"
+  ipa group-add $group_name
+  for user_num in $(seq $((group_num*10-9)) $((group_num*10))); do
+    ipa group-add-member $group_name --users=user$user_num
+  done
+done
+ 
+# Разрешение аутентификации с использованием доменных учетных данных
+ipa-join
+

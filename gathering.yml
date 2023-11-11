@@ -1,0 +1,21 @@
+---
+- name: Collect Host Information
+  hosts: rosa2021
+  gather_facts: yes
+
+- name: Collect Host Information3
+  hosts: astra
+  gather_facts: yes
+
+- name: Collect Host Information2
+  hosts: localhost
+  gather_facts: yes 
+
+  tasks:
+    - name: Generate Output
+      copy:
+        content: "{{ hostvars[ 'rosa2021'].ansible_hostname }} - {{ hostvars[ 'rosa2021' ].ansible_default_ipv4.address }}
+\n{{ hostvars[ 'astra'].ansible_hostname }} - {{ hostvars[ 'astra' ].ansible_default_ipv4.address }} 
+\n{{ hostvars[ 'localhost'].ansible_hostname }} - {{ hostvars[ 'localhost' ].ansible_default_ipv4.address }}"
+        dest: /etc/ansible/output.yaml
+      become: yes
